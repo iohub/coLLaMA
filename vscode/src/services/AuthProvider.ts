@@ -28,18 +28,18 @@ type Listener = (authStatus: AuthStatus) => void
 type Unsubscribe = () => {}
 
 export class AuthProvider {
-    private endpointHistory: string[] = []
+    protected endpointHistory: string[] = []
 
-    private appScheme = vscode.env.uriScheme
-    private client: SourcegraphGraphQLAPIClient | null = null
+    protected appScheme = vscode.env.uriScheme
+    protected client: SourcegraphGraphQLAPIClient | null = null
     public appDetector: LocalAppDetector
 
-    private authStatus: AuthStatus = defaultAuthStatus
+    protected authStatus: AuthStatus = defaultAuthStatus
     public webview?: SidebarChatWebview
-    private listeners: Set<Listener> = new Set()
+    protected listeners: Set<Listener> = new Set()
 
     constructor(
-        private config: Pick<ConfigurationWithAccessToken, 'serverEndpoint' | 'accessToken' | 'customHeaders'>
+        protected config: Pick<ConfigurationWithAccessToken, 'serverEndpoint' | 'accessToken' | 'customHeaders'>
     ) {
         this.authStatus.endpoint = 'init'
         this.loadEndpointHistory()
@@ -115,7 +115,7 @@ export class AuthProvider {
         }
     }
 
-    private async signinMenuForInstanceUrl(instanceUrl: string): Promise<void> {
+    protected async signinMenuForInstanceUrl(instanceUrl: string): Promise<void> {
         const accessToken = await showAccessTokenInputBox(instanceUrl)
         if (!accessToken) {
             return
@@ -153,7 +153,7 @@ export class AuthProvider {
     }
 
     // Log user out of the selected endpoint (remove token from secret)
-    private async signout(endpoint: string): Promise<void> {
+    protected async signout(endpoint: string): Promise<void> {
         // Restart appDetector if endpoint is App
         if (isLocalApp(endpoint)) {
             await this.appDetector.init()
@@ -167,7 +167,7 @@ export class AuthProvider {
     }
 
     // Create Auth Status
-    private async makeAuthStatus(
+    protected async makeAuthStatus(
         config: Pick<ConfigurationWithAccessToken, 'serverEndpoint' | 'accessToken' | 'customHeaders'>
     ): Promise<AuthStatus> {
         const endpoint = config.serverEndpoint
@@ -279,7 +279,7 @@ export class AuthProvider {
     }
 
     // Set auth status and share it with chatview
-    private async syncAuthStatus(authStatus: AuthStatus): Promise<void> {
+    protected async syncAuthStatus(authStatus: AuthStatus): Promise<void> {
         if (this.authStatus === authStatus) {
             return
         }
@@ -364,12 +364,12 @@ export class AuthProvider {
     }
 
     // Refresh current endpoint history with the one from local storage
-    private loadEndpointHistory(): void {
+    protected loadEndpointHistory(): void {
         this.endpointHistory = localStorage.getEndpointHistory() || []
     }
 
     // Store endpoint in local storage, token in secret storage, and update endpoint history
-    private async storeAuthInfo(endpoint: string | null | undefined, token: string | null | undefined): Promise<void> {
+    protected async storeAuthInfo(endpoint: string | null | undefined, token: string | null | undefined): Promise<void> {
         if (!endpoint) {
             return
         }
