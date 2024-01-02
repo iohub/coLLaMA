@@ -145,14 +145,6 @@
             "media": {
               "markdown": "walkthroughs/autocomplete.md"
             }
-          },
-          {
-            "id": "learn-more",
-            "title": "Learn More & Feedback",
-            "description": "📖 Dive deeper into Cody by reading our [full documentation](https://docs.sourcegraph.com/cody).\n🎨 Discover more features by searching for \"Cody\" in the [Command Palette](command:workbench.action.showCommands).\n🗒️ Find out how Cody is improving by taking a look at the [Changelog](https://sourcegraph.com/github.com/sourcegraph/cody/-/blob/vscode/CHANGELOG.md).\n💬 Bugs, ideas or feedback? Post a message on our [GitHub Discussions](https://github.com/sourcegraph/cody/discussions/new?category=product-feedback&labels=vscode).",
-            "media": {
-              "markdown": "walkthroughs/learn-more.md"
-            }
           }
         ]
       }
@@ -269,20 +261,6 @@
     ],
     "commands": [
       {
-        "command": "cody.welcome",
-        "title": "Help & Getting Started",
-        "category": "Cody",
-        "group": "Cody",
-        "icon": "$(book)"
-      },
-      {
-        "command": "cody.feedback",
-        "title": "Feedback",
-        "category": "Cody",
-        "group": "Cody",
-        "icon": "$(feedback)"
-      },
-      {
         "command": "cody.command.edit-code",
         "category": "Ask Cody",
         "title": "Edit Code",
@@ -335,11 +313,6 @@
         "category": "Cody",
         "title": "Sign Out",
         "icon": "$(sign-out)"
-      },
-      {
-        "command": "cody.auth.signin",
-        "category": "Cody",
-        "title": "Switch Account…"
       },
       {
         "command": "cody.settings.extension",
