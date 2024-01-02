@@ -402,7 +402,7 @@ const register = async (
         }),
         vscode.commands.registerCommand('cody.focus', () => vscode.commands.executeCommand('cody.chat.focus')),
         vscode.commands.registerCommand('cody.settings.extension', () =>
-            vscode.commands.executeCommand('workbench.action.openSettings', { query: '@ext:sourcegraph.cody-ai' })
+            vscode.commands.executeCommand('workbench.action.openSettings', { query: '@ext:iohub.collama' })
         ),
         vscode.commands.registerCommand('cody.history', async () => {
             await chatManager.setWebviewView('history')
