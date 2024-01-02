@@ -1,12 +1,12 @@
 {
-  "name": "cody-ai",
+  "name": "collama",
   "private": true,
-  "displayName": "Cody AI",
+  "displayName": "coLLaMA",
   "version": "0.16.1",
-  "publisher": "sourcegraph",
+  "publisher": "iohub",
   "license": "Apache-2.0",
   "icon": "resources/cody.png",
-  "description": "Code AI with codebase context",
+  "description": "Code AI with self-hosted llama.cpp endpoint.",
   "scripts": {
     "postinstall": "pnpm download-wasm",
     "dev": "pnpm run -s dev:desktop",
