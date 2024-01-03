@@ -15,7 +15,7 @@ import {
     TracedError,
 } from '@sourcegraph/cody-shared/src/sourcegraph-api/errors'
 import { getActiveTraceAndSpanId, getTraceparent } from '@sourcegraph/cody-shared/src/tracing'
-
+import * as vscode from 'vscode'
 import { fetch } from '../fetch'
 
 import { forkSignal } from './utils'
@@ -36,7 +36,10 @@ export interface CodeCompletionsClient {
  */
 export function createClient(config: CompletionsClientConfig, logger?: CompletionLogger): CodeCompletionsClient {
     function getCodeCompletionsEndpoint(): string {
-        return new URL('/completion', 'http://127.0.0.1:8080').href
+        let config = vscode.workspace.getConfiguration()
+        const endpoint = config.get<string>('cody.llama.serverEndpoint')
+        // code completion URL
+        return new URL('/completion', endpoint).href
     }
 
     function completeWithTimeout(

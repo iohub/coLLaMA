@@ -36,7 +36,7 @@ export abstract class SourcegraphCompletionsClient {
     protected get completionsEndpoint(): string {
         let config = vscode.workspace.getConfiguration()
         const endpoint = config.get<string>('cody.llama.serverEndpoint')
-        // stream completion
+        // stream chat completion URL
         return new URL('/completion', endpoint).href
     }
 
