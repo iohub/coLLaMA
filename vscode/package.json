@@ -902,27 +902,6 @@
           "type": "string",
           "markdownDeprecationMessage": "The SOCKS proxy endpoint to access server endpoint. This is only supported with some autocomplete providers and only for use with the Cody Agent (for instance with JetBrains plugin). For VS Code please use http.proxy instead."
         },
-        "cody.codebase": {
-          "order": 2,
-          "type": "string",
-          "markdownDescription": "The Git repository URL for your code. This will be sent to the Sourcegraph API to fetch the code graph context data. When set to empty, the URL will be inferred from your Git metadata.",
-          "examples": [
-            "https://github.com/sourcegraph/cody",
-            "ssh://git@github.com/sourcegraph/cody"
-          ]
-        },
-        "cody.useContext": {
-          "order": 3,
-          "type": "string",
-          "enum": [
-            "embeddings",
-            "keyword",
-            "none",
-            "blended"
-          ],
-          "default": "embeddings",
-          "markdownDescription": "If 'embeddings' is selected, Cody will prefer to use an embeddings-based index when fetching context to generate responses to user requests. If no such index is found, it will fall back to using keyword-based local context fetching. If 'keyword' is selected, Cody will use keyword context. Selecting 'none' will limit Cody to using only the currently open file."
-        },
         "cody.customHeaders": {
           "order": 4,
           "type": "object",
@@ -1041,55 +1020,10 @@
           "type": "string",
           "markdownDescription": "Regular expression to filter debug output. If empty, defaults to '.*', which prints all messages."
         },
-        "cody.telemetry.level": {
-          "order": 99,
+        "cody.llama.serverEndpoint": {
+          "order": 2,
           "type": "string",
-          "enum": [
-            "all",
-            "off"
-          ],
-          "enumDescriptions": [
-            "Sends usage data and errors.",
-            "Disables all extension telemetry."
-          ],
-          "markdownDescription": "Controls the telemetry about Cody usage and errors. See [Cody usage and privacy notice](https://about.sourcegraph.com/terms/cody-notice).",
-          "default": "all"
-        },
-        "cody.autocomplete.advanced.provider": {
-          "type": "string",
-          "default": null,
-          "enum": [
-            null,
-            "anthropic",
-            "fireworks",
-            "unstable-openai"
-          ],
-          "markdownDescription": "The provider used for code autocomplete. Most providers other than `anthropic` require the `cody.autocomplete.advanced.serverEndpoint` and `cody.autocomplete.advanced.accessToken` settings to also be set. Check the Cody output channel for error messages if autocomplete is not working as expected."
-        },
-        "cody.autocomplete.advanced.serverEndpoint": {
-          "type": "string",
-          "markdownDescription": "The server endpoint used for code autocomplete. This is only supported with a provider other than `anthropic`."
-        },
-        "cody.autocomplete.advanced.accessToken": {
-          "type": "string",
-          "markdownDescription": "The access token used for code autocomplete. This is only supported with a provider other than `anthropic`."
-        },
-        "cody.autocomplete.advanced.model": {
-          "type": "string",
-          "default": null,
-          "enum": [
-            null,
-            "starcoder-16b",
-            "starcoder-7b",
-            "starcoder-3b",
-            "starcoder-1b",
-            "wizardcoder-15b",
-            "llama-code-7b",
-            "llama-code-13b",
-            "llama-code-13b-instruct",
-            "mistral-7b-instruct-4k"
-          ],
-          "markdownDescription": "Overwrite the  model used for code autocompletion inference. This is only supported with the `fireworks` provider"
+          "markdownDescription": "The llama.cpp server endpoint. for example: http://127.0.0.1:8080"
         },
         "cody.autocomplete.completeSuggestWidgetSelection": {
           "type": "boolean",

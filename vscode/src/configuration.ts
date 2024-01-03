@@ -2,12 +2,11 @@ import * as vscode from 'vscode'
 
 import type {
     Configuration,
-    ConfigurationUseContext,
     ConfigurationWithAccessToken,
 } from '@sourcegraph/cody-shared/src/configuration'
 import { DOTCOM_URL } from '@sourcegraph/cody-shared/src/sourcegraph-api/environments'
 
-import { CONFIG_KEY, ConfigKeys, ConfigurationKeysMap, getConfigEnumValues } from './configuration-keys'
+import { CONFIG_KEY, ConfigKeys } from './configuration-keys'
 import { getAccessToken } from './services/SecretStorageProvider'
 
 interface ConfigGetter {
@@ -44,36 +43,20 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
         autocompleteExperimentalGraphContext = 'lsp-light'
     }
 
-    let autocompleteAdvancedProvider: Configuration['autocompleteAdvancedProvider'] = config.get(
-        CONFIG_KEY.autocompleteAdvancedProvider,
-        null
-    )
-    // Handle the old `unstable-fireworks` option
-    if (autocompleteAdvancedProvider === 'unstable-fireworks') {
-        autocompleteAdvancedProvider = 'fireworks'
-    }
-
-    // check if the configured enum values are valid
-    const configKeys = ['autocompleteAdvancedProvider', 'autocompleteAdvancedModel'] as (keyof ConfigurationKeysMap)[]
-
-    for (const configVal of configKeys) {
-        const key = configVal.replaceAll(/([A-Z])/g, '.$1').toLowerCase()
-        const value: string | null = config.get(CONFIG_KEY[configVal])
-        checkValidEnumValues(key, value)
-    }
+    let autocompleteAdvancedProvider: Configuration['autocompleteAdvancedProvider'] = 'fireworks'
 
     return {
         // NOTE: serverEndpoint is now stored in Local Storage instead but we will still keep supporting the one in confg
         // to use as fallback for users who do not have access to local storage
         serverEndpoint: sanitizeServerEndpoint(config.get(CONFIG_KEY.serverEndpoint, '')),
         proxy: config.get<string | null>(CONFIG_KEY.proxy, null),
-        codebase: sanitizeCodebase(config.get(CONFIG_KEY.codebase)),
+        codebase: sanitizeCodebase(''),
         customHeaders: config.get<object>(CONFIG_KEY.customHeaders, {}) as Record<string, string>,
-        useContext: config.get<ConfigurationUseContext>(CONFIG_KEY.useContext) || 'embeddings',
+        useContext:  'none',
         debugEnable: config.get<boolean>(CONFIG_KEY.debugEnable, false),
         debugVerbose: config.get<boolean>(CONFIG_KEY.debugVerbose, false),
         debugFilter: debugRegex,
-        telemetryLevel: config.get<'all' | 'off'>(CONFIG_KEY.telemetryLevel, 'all'),
+        telemetryLevel: 'off',
         autocomplete: config.get(CONFIG_KEY.autocompleteEnabled, true),
         autocompleteLanguages: config.get(CONFIG_KEY.autocompleteLanguages, {
             '*': true,
@@ -91,11 +74,11 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
         editorTitleCommandIcon: config.get(CONFIG_KEY.editorTitleCommandIcon, true),
         autocompleteAdvancedProvider,
         autocompleteAdvancedServerEndpoint: config.get<string | null>(
-            CONFIG_KEY.autocompleteAdvancedServerEndpoint,
+            'cody.llama.serverEndpoint',
             null
         ),
-        autocompleteAdvancedModel: config.get<string | null>(CONFIG_KEY.autocompleteAdvancedModel, null),
-        autocompleteAdvancedAccessToken: config.get<string | null>(CONFIG_KEY.autocompleteAdvancedAccessToken, null),
+        autocompleteAdvancedModel: null,
+        autocompleteAdvancedAccessToken: 'fake-token',
         autocompleteCompleteSuggestWidgetSelection: config.get(
             CONFIG_KEY.autocompleteCompleteSuggestWidgetSelection,
             true
@@ -161,19 +144,21 @@ function sanitizeServerEndpoint(serverEndpoint: string): string {
 
 export const getFullConfig = async (): Promise<ConfigurationWithAccessToken> => {
     const config = getConfiguration()
+    console.log('config:', config)
     // Migrate endpoints to local storage
     config.serverEndpoint = "http://127.0.0.1:8080" // localStorage?.getEndpoint() || config.serverEndpoint
     const accessToken = (await getAccessToken()) || null
     return { ...config, accessToken }
 }
-
-function checkValidEnumValues(configName: string, value: string | null): void {
-    const validEnumValues = getConfigEnumValues('cody.' + configName)
-    if (value) {
-        if (!validEnumValues.includes(value)) {
-            void vscode.window.showErrorMessage(
-                `Invalid value for ${configName}: ${value}. Valid values are: ${validEnumValues.join(', ')}`
-            )
+/*
+    function checkValidEnumValues(configName: string, value: string | null): void {
+        const validEnumValues = getConfigEnumValues('cody.' + configName)
+        if (value) {
+            if (!validEnumValues.includes(value)) {
+                void vscode.window.showErrorMessage(
+                    `Invalid value for ${configName}: ${value}. Valid values are: ${validEnumValues.join(', ')}`
+                )
+            }
         }
     }
-}
+*/
