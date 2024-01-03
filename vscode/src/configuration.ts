@@ -7,7 +7,7 @@ import type {
 } from '@sourcegraph/cody-shared/src/configuration'
 import { DOTCOM_URL } from '@sourcegraph/cody-shared/src/sourcegraph-api/environments'
 
-import { CONFIG_KEY, ConfigKeys, ConfigurationKeysMap, getConfigEnumValues } from './configuration-keys'
+import { CONFIG_KEY, ConfigKeys } from './configuration-keys'
 import { getAccessToken } from './services/SecretStorageProvider'
 
 interface ConfigGetter {
@@ -46,15 +46,6 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
 
     let autocompleteAdvancedProvider: Configuration['autocompleteAdvancedProvider'] = 'fireworks'
 
-    // check if the configured enum values are valid
-    const configKeys = ['autocompleteAdvancedProvider', 'autocompleteAdvancedModel'] as (keyof ConfigurationKeysMap)[]
-
-    for (const configVal of configKeys) {
-        const key = configVal.replaceAll(/([A-Z])/g, '.$1').toLowerCase()
-        const value: string | null = config.get(CONFIG_KEY[configVal])
-        checkValidEnumValues(key, value)
-    }
-
     return {
         // NOTE: serverEndpoint is now stored in Local Storage instead but we will still keep supporting the one in confg
         // to use as fallback for users who do not have access to local storage
@@ -87,7 +78,7 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
             CONFIG_KEY.autocompleteAdvancedServerEndpoint,
             null
         ),
-        autocompleteAdvancedModel: config.get<string | null>(CONFIG_KEY.autocompleteAdvancedModel, null),
+        autocompleteAdvancedModel: null,
         autocompleteAdvancedAccessToken: config.get<string | null>(CONFIG_KEY.autocompleteAdvancedAccessToken, null),
         autocompleteCompleteSuggestWidgetSelection: config.get(
             CONFIG_KEY.autocompleteCompleteSuggestWidgetSelection,
@@ -160,14 +151,15 @@ export const getFullConfig = async (): Promise<ConfigurationWithAccessToken> => 
     const accessToken = (await getAccessToken()) || null
     return { ...config, accessToken }
 }
-
-function checkValidEnumValues(configName: string, value: string | null): void {
-    const validEnumValues = getConfigEnumValues('cody.' + configName)
-    if (value) {
-        if (!validEnumValues.includes(value)) {
-            void vscode.window.showErrorMessage(
-                `Invalid value for ${configName}: ${value}. Valid values are: ${validEnumValues.join(', ')}`
-            )
+/*
+    function checkValidEnumValues(configName: string, value: string | null): void {
+        const validEnumValues = getConfigEnumValues('cody.' + configName)
+        if (value) {
+            if (!validEnumValues.includes(value)) {
+                void vscode.window.showErrorMessage(
+                    `Invalid value for ${configName}: ${value}. Valid values are: ${validEnumValues.join(', ')}`
+                )
+            }
         }
     }
-}
+*/
