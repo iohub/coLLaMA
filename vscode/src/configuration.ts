@@ -44,14 +44,7 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
         autocompleteExperimentalGraphContext = 'lsp-light'
     }
 
-    let autocompleteAdvancedProvider: Configuration['autocompleteAdvancedProvider'] = config.get(
-        CONFIG_KEY.autocompleteAdvancedProvider,
-        null
-    )
-    // Handle the old `unstable-fireworks` option
-    if (autocompleteAdvancedProvider === 'unstable-fireworks') {
-        autocompleteAdvancedProvider = 'fireworks'
-    }
+    let autocompleteAdvancedProvider: Configuration['autocompleteAdvancedProvider'] = 'fireworks'
 
     // check if the configured enum values are valid
     const configKeys = ['autocompleteAdvancedProvider', 'autocompleteAdvancedModel'] as (keyof ConfigurationKeysMap)[]
@@ -161,6 +154,7 @@ function sanitizeServerEndpoint(serverEndpoint: string): string {
 
 export const getFullConfig = async (): Promise<ConfigurationWithAccessToken> => {
     const config = getConfiguration()
+    console.log('config:', config)
     // Migrate endpoints to local storage
     config.serverEndpoint = "http://127.0.0.1:8080" // localStorage?.getEndpoint() || config.serverEndpoint
     const accessToken = (await getAccessToken()) || null
