@@ -2,7 +2,6 @@ import * as vscode from 'vscode'
 
 import type {
     Configuration,
-    ConfigurationUseContext,
     ConfigurationWithAccessToken,
 } from '@sourcegraph/cody-shared/src/configuration'
 import { DOTCOM_URL } from '@sourcegraph/cody-shared/src/sourcegraph-api/environments'
@@ -51,9 +50,9 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
         // to use as fallback for users who do not have access to local storage
         serverEndpoint: sanitizeServerEndpoint(config.get(CONFIG_KEY.serverEndpoint, '')),
         proxy: config.get<string | null>(CONFIG_KEY.proxy, null),
-        codebase: sanitizeCodebase(config.get(CONFIG_KEY.codebase)),
+        codebase: sanitizeCodebase(''),
         customHeaders: config.get<object>(CONFIG_KEY.customHeaders, {}) as Record<string, string>,
-        useContext: config.get<ConfigurationUseContext>(CONFIG_KEY.useContext) || 'embeddings',
+        useContext:  'none',
         debugEnable: config.get<boolean>(CONFIG_KEY.debugEnable, false),
         debugVerbose: config.get<boolean>(CONFIG_KEY.debugVerbose, false),
         debugFilter: debugRegex,
@@ -75,11 +74,11 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
         editorTitleCommandIcon: config.get(CONFIG_KEY.editorTitleCommandIcon, true),
         autocompleteAdvancedProvider,
         autocompleteAdvancedServerEndpoint: config.get<string | null>(
-            CONFIG_KEY.autocompleteAdvancedServerEndpoint,
+            'cody.llama.serverEndpoint',
             null
         ),
         autocompleteAdvancedModel: null,
-        autocompleteAdvancedAccessToken: config.get<string | null>(CONFIG_KEY.autocompleteAdvancedAccessToken, null),
+        autocompleteAdvancedAccessToken: 'fake-token',
         autocompleteCompleteSuggestWidgetSelection: config.get(
             CONFIG_KEY.autocompleteCompleteSuggestWidgetSelection,
             true
