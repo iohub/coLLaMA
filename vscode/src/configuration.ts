@@ -73,7 +73,7 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
         debugEnable: config.get<boolean>(CONFIG_KEY.debugEnable, false),
         debugVerbose: config.get<boolean>(CONFIG_KEY.debugVerbose, false),
         debugFilter: debugRegex,
-        telemetryLevel: config.get<'all' | 'off'>(CONFIG_KEY.telemetryLevel, 'all'),
+        telemetryLevel: 'off',
         autocomplete: config.get(CONFIG_KEY.autocompleteEnabled, true),
         autocompleteLanguages: config.get(CONFIG_KEY.autocompleteLanguages, {
             '*': true,
