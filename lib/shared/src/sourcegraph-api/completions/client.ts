@@ -1,3 +1,4 @@
+import * as vscode from 'vscode'
 import { ConfigurationWithAccessToken } from '../../configuration'
 
 import { CompletionCallbacks, CompletionParameters, CompletionResponse, Event } from './types'
@@ -33,8 +34,10 @@ export abstract class SourcegraphCompletionsClient {
     }
 
     protected get completionsEndpoint(): string {
+        let config = vscode.workspace.getConfiguration()
+        const endpoint = config.get<string>('cody.autocomplete.advanced.serverEndpoint')
         // stream completion
-        return new URL('/completion', 'http://127.0.0.1:8080').href
+        return new URL('/completion', endpoint).href
     }
 
     protected sendEvents(events: Event[], cb: CompletionCallbacks): void {
