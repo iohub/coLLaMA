@@ -6,7 +6,7 @@ import { customUserAgent } from '../graphql/client'
 import { toPartialUtf8String } from '../utils'
 
 import { SourcegraphCompletionsClient } from './client'
-import { parseSSEData, LLAMA_ERROR_PREFIX } from './parse'
+import { parseSSE, parseJsonData } from './parse'
 import { CompletionCallbacks, CompletionParameters, withPrompt } from './types'
 
 export class SourcegraphNodeCompletionsClient extends SourcegraphCompletionsClient {
@@ -68,8 +68,8 @@ export class SourcegraphNodeCompletionsClient extends SourcegraphCompletionsClie
                 // Bytes which have not been decoded as UTF-8 text
                 let bufferBin = Buffer.of()
                 // Text which has not been decoded as a server-sent event (SSE)
-                let bufferText = ''
                 let completionText = ''
+                let bufferStr = ''
 
                 res.on('data', chunk => {
                     if (!(chunk instanceof Buffer)) {
@@ -79,20 +79,23 @@ export class SourcegraphNodeCompletionsClient extends SourcegraphCompletionsClie
                     // may terminate in the middle of a character
                     const { str, buf } = toPartialUtf8String(Buffer.concat([bufferBin, chunk]))
                     bufferBin = buf
-                    if (str.startsWith(LLAMA_ERROR_PREFIX)) {
-                        return 
-                    }
-                    const event = parseSSEData(bufferText == '' ? str : bufferText + str)
-                    if (isError(event)) {
-                        console.error(event)
-                        bufferText += str
+                    bufferStr += str
+                    const jsonData = parseJsonData(bufferStr)
+                    if (isError(jsonData)) {
+                        console.error(jsonData)
                         return
                     }
+                    // console.log(jsonData)
+                    const event = parseSSE(jsonData.json)
+                    if (isError(event)) {
+                        console.error(event)
+                        return
+                    }
+                    bufferStr = jsonData.remainingBuffer
                     if (event.type == "completion") {
                         completionText += event.completion
                         event.completion = completionText
                     }
-                    bufferText = ''
                     this.sendEvents([event], cb)
                 })
 
