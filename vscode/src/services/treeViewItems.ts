@@ -1,9 +1,7 @@
 import { UserLocalHistory } from '@sourcegraph/cody-shared/src/chat/transcript/messages'
 import { FeatureFlag } from '@sourcegraph/cody-shared/src/experimentation/FeatureFlagProvider'
 
-import { ACCOUNT_UPGRADE_URL, ACCOUNT_USAGE_URL, CODY_DOC_URL, CODY_FEEDBACK_URL, DISCORD_URL } from '../chat/protocol'
-
-import { envInit } from './LocalAppDetector'
+import { ACCOUNT_USAGE_URL } from '../chat/protocol'
 
 export type CodyTreeItemType = 'command' | 'support' | 'search' | 'chat'
 
@@ -62,14 +60,6 @@ export function createCodyChatTreeItems(userHistory: UserLocalHistory): CodySide
 
 const supportItems: CodySidebarTreeItem[] = [
     {
-        title: 'Upgrade',
-        description: 'Upgrade to Pro',
-        icon: 'zap',
-        command: { command: 'vscode.open', args: [ACCOUNT_UPGRADE_URL.href] },
-        requireUpgradeAvailable: true,
-        requireFeature: FeatureFlag.CodyPro,
-    },
-    {
         title: 'Usage',
         icon: 'pulse',
         command: { command: 'vscode.open', args: [ACCOUNT_USAGE_URL.href] },
@@ -84,36 +74,7 @@ const supportItems: CodySidebarTreeItem[] = [
         title: 'Keyboard Shortcuts',
         icon: 'keyboard',
         command: { command: 'workbench.action.openGlobalKeybindings', args: ['@ext:sourcegraph.cody-ai'] },
-    },
-    {
-        title: 'Release Notes',
-        description: `v${envInit.extensionVersion}`,
-        icon: 'github',
-        command: {
-            command: 'vscode.open',
-            args: [`https://github.com/sourcegraph/cody/releases/tag/vscode-v${envInit.extensionVersion}`],
-        },
-    },
-    {
-        title: 'Documentation',
-        icon: 'book',
-        command: { command: 'vscode.open', args: [CODY_DOC_URL.href] },
-    },
-    {
-        title: 'Feedback',
-        icon: 'feedback',
-        command: { command: 'vscode.open', args: [CODY_FEEDBACK_URL.href] },
-    },
-    {
-        title: 'Discord',
-        icon: 'organization',
-        command: { command: 'vscode.open', args: [DISCORD_URL.href] },
-    },
-    {
-        title: 'Sign Out',
-        icon: 'log-out',
-        command: { command: 'cody.auth.signout' },
-    },
+    }
 ]
 
 const commandsItems: CodySidebarTreeItem[] = [
@@ -121,7 +82,7 @@ const commandsItems: CodySidebarTreeItem[] = [
         title: 'Chat',
         icon: 'comment',
         description: 'Ask Cody a question',
-        command: { command: 'cody.chat.panel.new' },
+        command: { command: 'cody.command.chat-hi' },
     },
     {
         title: 'Document',

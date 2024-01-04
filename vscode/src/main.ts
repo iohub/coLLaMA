@@ -434,6 +434,9 @@ const register = async (
         vscode.commands.registerCommand('cody.command.explain-code', async () => {
             await executeRecipeInChatView('custom-prompt', true, '/explain')
         }),
+        vscode.commands.registerCommand('cody.command.chat-hi', async () => {
+            await executeRecipeInChatView('custom-prompt', true, '/hi')
+        }),
         vscode.commands.registerCommand('cody.command.generate-tests', async () => {
             await executeRecipeInChatView('custom-prompt', true, '/test')
         }),
