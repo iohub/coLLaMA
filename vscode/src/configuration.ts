@@ -21,7 +21,7 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
 
     let debugRegex: RegExp | null = null
     try {
-        const debugPattern: string | null = config.get<string | null>(CONFIG_KEY.debugFilter, null)
+        const debugPattern: string | null = null
         if (debugPattern) {
             if (debugPattern === '*') {
                 debugRegex = new RegExp('.*')
@@ -53,8 +53,8 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
         codebase: sanitizeCodebase(''),
         customHeaders: config.get<object>(CONFIG_KEY.customHeaders, {}) as Record<string, string>,
         useContext:  'none',
-        debugEnable: config.get<boolean>(CONFIG_KEY.debugEnable, false),
-        debugVerbose: config.get<boolean>(CONFIG_KEY.debugVerbose, false),
+        debugEnable: false,
+        debugVerbose: false,
         debugFilter: debugRegex,
         telemetryLevel: 'off',
         autocomplete: config.get(CONFIG_KEY.autocompleteEnabled, true),
@@ -64,10 +64,10 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
         }),
         experimentalChatPanel: config.get(CONFIG_KEY.experimentalChatPanel, isTesting),
         experimentalChatPredictions: config.get(CONFIG_KEY.experimentalChatPredictions, isTesting),
-        experimentalSearchPanel: config.get(CONFIG_KEY.experimentalNewSearch, isTesting),
+        experimentalSearchPanel: false,
         experimentalSimpleChatContext: config.get(CONFIG_KEY.experimentalSimpleChatContext, isTesting),
         chatPreInstruction: config.get(CONFIG_KEY.chatPreInstruction),
-        experimentalGuardrails: config.get(CONFIG_KEY.experimentalGuardrails, isTesting),
+        experimentalGuardrails: false,
         experimentalNonStop: config.get(CONFIG_KEY.experimentalNonStop, isTesting),
         experimentalLocalSymbols: config.get(CONFIG_KEY.experimentalLocalSymbols, false),
         commandCodeLenses: config.get(CONFIG_KEY.commandCodeLenses, false),
