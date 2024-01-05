@@ -6,6 +6,7 @@ import type {
 import type {
     CompletionParameters,
     CompletionResponse,
+    LLaMaCompletionResponse,
 } from '@sourcegraph/cody-shared/src/sourcegraph-api/completions/types'
 import {
     isAbortError,
@@ -40,6 +41,10 @@ export function createClient(config: CompletionsClientConfig, logger?: Completio
         const endpoint = config.get<string>('cody.llama.serverEndpoint')
         // code completion URL
         return new URL('/completion', endpoint).href
+    }
+    function getCodeCompletionMaxtokens(): number {
+        let config = vscode.workspace.getConfiguration()
+        return config.get<number>('cody.autocomplete.maxTokens', 30)
     }
 
     function completeWithTimeout(
@@ -88,10 +93,14 @@ export function createClient(config: CompletionsClientConfig, logger?: Completio
         //
         // TODO(philipp-spiess): Feature test if the response is a Node or a browser stream and
         // implement SSE parsing for both.
-        const isNode = typeof process !== 'undefined'
-        const enableStreaming = !!isNode
+        // const isNode = typeof process !== 'undefined'
+        const enableStreaming = false
 
         const url = getCodeCompletionsEndpoint()
+        params.messages.forEach(element => {
+            if (element.speaker == 'human') params.prompt = element.text
+        });
+        params.n_predict = getCodeCompletionMaxtokens()
         const response: Response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -167,8 +176,8 @@ export function createClient(config: CompletionsClientConfig, logger?: Completio
         } else {
             const result = await response.text()
             try {
-                const response = JSON.parse(result) as CompletionResponse
-
+                const _response = JSON.parse(result) as LLaMaCompletionResponse
+                const response: CompletionResponse = { completion: _response.content, stopReason: '' }
                 if (typeof response.completion !== 'string' || typeof response.stopReason !== 'string') {
                     const message = `response does not satisfy CodeCompletionResponse: ${result}`
                     log?.onError(message)

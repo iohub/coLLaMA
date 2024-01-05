@@ -11,7 +11,7 @@ export class ChatClient {
 
     constructor(private completions: SourcegraphCompletionsClient) {
         let config = vscode.workspace.getConfiguration()
-        this.maxTokens = config.get<number>('cody.llama.maxTokens', 100)
+        this.maxTokens = config.get<number>('cody.chat.maxTokens', 100)
     }
 
     public chat(messages: Message[], cb: CompletionCallbacks, params?: Partial<ChatParameters>): () => void {

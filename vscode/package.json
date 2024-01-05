@@ -1025,10 +1025,16 @@
           "type": "string",
           "markdownDescription": "The llama.cpp server endpoint. for example: http://127.0.0.1:8080"
         },
-        "cody.llama.maxTokens": {
+        "cody.chat.maxTokens": {
           "order": 3,
           "type": "number",
-          "default": 100,
+          "default": 300,
+          "markdownDescription": "The llama.cpp max generate tokens number(n_predict)."
+        },
+        "cody.autocomplete.maxTokens": {
+          "order": 3,
+          "type": "number",
+          "default": 60,
           "markdownDescription": "The llama.cpp max generate tokens number(n_predict)."
         },
         "cody.autocomplete.completeSuggestWidgetSelection": {

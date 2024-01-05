@@ -23,6 +23,10 @@ export interface CompletionResponse {
     stopReason: string
 }
 
+export interface LLaMaCompletionResponse {
+    content: string
+}
+
 export interface CompletionParameters {
     fast?: boolean
     messages: Message[]
