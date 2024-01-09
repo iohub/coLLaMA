@@ -3,7 +3,7 @@
   "private": true,
   "displayName": "coLLaMA",
   "version": "0.16.1",
-  "publisher": "iohub",
+  "publisher": "rickyang",
   "license": "Apache-2.0",
   "icon": "resources/cody.png",
   "description": "Code AI with self-hosted llama.cpp endpoint.",
