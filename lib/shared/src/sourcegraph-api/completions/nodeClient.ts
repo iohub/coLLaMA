@@ -102,6 +102,9 @@ export class SourcegraphNodeCompletionsClient extends SourcegraphCompletionsClie
                     log?.onError(e.message)
                     cb.onError(e.message)
                 })
+                res.on('end', () => {
+                    this.sendEvents([{type: 'done'}], cb)
+                })
             }
         )
 
