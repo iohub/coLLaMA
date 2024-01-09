@@ -954,12 +954,6 @@
           "markdownDescription": "Adds code lenses to current file for quick access to Cody commands.",
           "default": false
         },
-        "cody.experimental.guardrails": {
-          "order": 9,
-          "type": "boolean",
-          "markdownDescription": "Experimental feature for internal use.",
-          "default": false
-        },
         "cody.experimental.nonStop": {
           "order": 9,
           "type": "boolean",
@@ -987,12 +981,6 @@
           "markdownDescription": "Enable Cody fix and explain options in the Quick Fix menu",
           "default": true
         },
-        "cody.experimental.newSearch": {
-          "order": 99,
-          "type": "boolean",
-          "markdownDescription": "New search UI",
-          "default": false
-        },
         "cody.experimental.simpleChatContext": {
           "order": 99,
           "type": "boolean",
@@ -1004,21 +992,6 @@
           "type": "string",
           "markdownDescription": "Path to symf binary",
           "default": ""
-        },
-        "cody.debug.enable": {
-          "order": 99,
-          "type": "boolean",
-          "markdownDescription": "Turns on debug output (visible in the VS Code Output panel under \"Cody by Sourcegraph\")"
-        },
-        "cody.debug.verbose": {
-          "order": 99,
-          "type": "boolean",
-          "markdownDescription": "Enables verbose debug output. Debug messages may contain more details if the invocation includes verbose information."
-        },
-        "cody.debug.filter": {
-          "order": 99,
-          "type": "string",
-          "markdownDescription": "Regular expression to filter debug output. If empty, defaults to '.*', which prints all messages."
         },
         "cody.llama.serverEndpoint": {
           "order": 2,

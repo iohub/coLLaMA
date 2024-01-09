@@ -101,54 +101,24 @@ export interface JsonParseResult {
 }
 
 export function parseJsonData(dataLine: string): JsonParseResult | Error {
-    let startIdx = dataLine.indexOf(DATA_LINE_PREFIX)
-    if (startIdx == -1) {
-        return new Error(`cannot parse event data: ${dataLine}`)
+    const regex = /data: /gi
+    let result, indices = []
+    let cnt = 0
+    while ( (result = regex.exec(dataLine)) && cnt < 2) {
+        indices.push(result.index)
+        cnt += 1
     }
-    startIdx += DATA_LINE_PREFIX.length
-    let stack = []
-    let endIdx = -1
-    var lastElement = function(str: string[]) {
-        if (str.length == 0) {
-            return null
-        }
-        return str[str.length-1]
+    if (indices.length < 2) {
+        return new Error(`cannot parseJsonData: ${dataLine}`)
     }
-    let inited = false
-    for (let i = startIdx; i < dataLine.length; i++) {
-        let ch = dataLine.charAt(i)
-        let lch = lastElement(stack)
-        switch (ch) {
-            case '{':
-                if (!lch || lch != '"') {
-                    stack.push(ch)
-                    inited = true
-                }
-                break
-            case '}':
-                if (!lch) return new Error(`cannot parse event data: ${dataLine}`) 
-                if (lch == '{') stack.pop()
-                break
-            case '"':
-                if (!lch) return new Error(`cannot parse event data: ${dataLine}`) 
-                if (lch != '"') stack.push(ch)
-                // found " and not \"
-                if (lch == '"' && dataLine.charAt(i-1) != "\\") {
-                    if (stack.length == 0) { return new Error(`cannot parse event data: ${dataLine}`) }
-                    else { stack.pop() }
-                }
-                break
-        }
-        if (inited && stack.length == 0) {
-            endIdx = i
-            break
-        }
+    let endindex = indices[1]-1
+    for ( ; endindex > indices[0]; endindex--) {
+        if (dataLine.at(endindex) == '}') break
     }
-    if (!inited || stack.length > 0) {
-        return new Error(`cannot parse event data: ${dataLine}`) 
+    return {
+        json: dataLine.substring(indices[0]+DATA_LINE_PREFIX.length, endindex+1), 
+        remainingBuffer: dataLine.substring(indices[1])
     }
-    const jsonData = dataLine.substring(startIdx, endIdx+1)
-    return {json: jsonData, remainingBuffer: dataLine.slice(endIdx+1)} 
 }
 
 export function parseSSE(jsonData: string): Event | Error {

@@ -68,7 +68,10 @@ export interface ProviderOptions {
 }
 
 export abstract class Provider {
-    constructor(public readonly options: Readonly<ProviderOptions>) {}
+    constructor(public readonly options: ProviderOptions) {
+        // Disable parallel LLM requests
+        options.n = 1
+    }
 
     public abstract generateCompletions(
         abortSignal: AbortSignal,

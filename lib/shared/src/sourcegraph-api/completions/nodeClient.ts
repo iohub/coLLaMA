@@ -82,10 +82,9 @@ export class SourcegraphNodeCompletionsClient extends SourcegraphCompletionsClie
                     bufferStr += str
                     const jsonData = parseJsonData(bufferStr)
                     if (isError(jsonData)) {
-                        console.error(jsonData)
+                        // console.error(jsonData)
                         return
                     }
-                    // console.log(jsonData)
                     const event = parseSSE(jsonData.json)
                     if (isError(event)) {
                         console.error(event)
@@ -102,6 +101,9 @@ export class SourcegraphNodeCompletionsClient extends SourcegraphCompletionsClie
                 res.on('error', e => {
                     log?.onError(e.message)
                     cb.onError(e.message)
+                })
+                res.on('end', () => {
+                    this.sendEvents([{type: 'done'}], cb)
                 })
             }
         )
