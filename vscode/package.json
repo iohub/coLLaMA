@@ -2,11 +2,11 @@
   "name": "collama",
   "private": true,
   "displayName": "coLLaMA",
-  "version": "0.16.3",
+  "version": "0.16.4",
   "publisher": "rickyang",
   "license": "Apache-2.0",
   "icon": "resources/cody.png",
-  "description": "Code AI with self-hosted llama.cpp endpoint.",
+  "description": "AI coding assistant powered by self-hosted llama.cpp endpoint.",
   "scripts": {
     "postinstall": "pnpm download-wasm",
     "dev": "pnpm run -s dev:desktop",
@@ -76,7 +76,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/iohub/collama",
+    "url": "https://github.com/iohub/collama.git",
     "directory": "vscode"
   },
   "bugs": {
@@ -1009,6 +1009,15 @@
           "type": "number",
           "default": 60,
           "markdownDescription": "The llama.cpp max generate tokens number(n_predict)."
+        },
+        "cody.prompt.format": {
+          "type": "string",
+          "default": "WizardCoder",
+          "enum": [
+            "WizardCoder",
+            "Guanaco"
+          ],
+          "markdownDescription": "Prompt template formater."
         },
         "cody.autocomplete.completeSuggestWidgetSelection": {
           "type": "boolean",

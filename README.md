@@ -2,7 +2,7 @@
 
 # <img src="https://storage.googleapis.com/sourcegraph-assets/cody/20230417/logomark-default.svg" width="26"> Cody with LLaMA
 
-"an AI pair programmer based on self-hosted llama.cpp endpoint."
+"VSCode AI coding assistant powered by self-hosted llama.cpp endpoint."
 
 </div>
 

@@ -4,14 +4,15 @@ import https from 'https'
 import { isError } from '../../utils'
 import { customUserAgent } from '../graphql/client'
 import { toPartialUtf8String } from '../utils'
-
+import * as vscode from 'vscode'
 import { SourcegraphCompletionsClient } from './client'
 import { parseSSE, parseJsonData } from './parse'
-import { CompletionCallbacks, CompletionParameters, withPrompt } from './types'
+import { CompletionCallbacks, CompletionParameters, FormatPrompt } from './types'
 
 export class SourcegraphNodeCompletionsClient extends SourcegraphCompletionsClient {
     public stream(params: CompletionParameters, cb: CompletionCallbacks): () => void {
-        params = withPrompt(params)
+        let config = vscode.workspace.getConfiguration()
+        params = FormatPrompt(params, config.get<string>('cody.prompt.format', 'WizardCoder'))
         const log = this.logger?.startCompletion(params)
 
         const abortController = new AbortController()
@@ -117,7 +118,7 @@ export class SourcegraphNodeCompletionsClient extends SourcegraphCompletionsClie
             log?.onError(message)
             cb.onError(message)
         })
-
+        // console.log('POST', params)
         request.write(JSON.stringify(params))
         request.end()
 

@@ -59,11 +59,33 @@ export interface CompletionCallbacks {
     onError: (message: string, statusCode?: number) => void
 }
 
-export function withPrompt(params: CompletionParameters) : CompletionParameters {
+export function FormatPrompt(params: CompletionParameters, promptType: string) : CompletionParameters {
     let prompt = ''
-    params.messages.forEach(e => {
-        if (e.speaker == "human" && e.text) prompt = e.text
-    })
+    switch (promptType) {
+        case 'Guanaco':
+            prompt += "A chat between a curious human and an artificial intelligence assistant.The assistant gives helpful, detailed, and polite answers to the user's questions.\n"
+            params.messages.forEach(e => {
+                const content = e.text ? e.text : ''
+                if (e.speaker == "human") {
+                    prompt +=  `\n### Human:\n${content}\n`
+                }
+                if (e.speaker == "assistant") {
+                    prompt +=  `\n### Assistant:\n${content}\n`
+                }
+            })
+            break
+        default: // WizardCoder format
+            prompt += "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n"
+            params.messages.forEach(e => {
+                const content = e.text ? e.text : ''
+                if (e.speaker == "human") {
+                    prompt +=  `\n### Instruction:\n${content}\n`
+                }
+                if (e.speaker == "assistant") {
+                    prompt += `\n### Response:\n${content}\n`
+                }
+            })
+    }
     params.prompt = prompt
     return params
 }
