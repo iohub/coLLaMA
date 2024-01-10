@@ -12,7 +12,7 @@
 - Set your llama.cpp server's address like http://192.168.1.100 in the Cody>llama Server Endpoint configure.
 - now enjoy coding with your localized deploy models.
 
-<img src="examples/chat_demo.png" alt="chat with llama.cpp server"/>
+<img src="examples/chat_demo.gif" alt="chat with llama.cpp server"/>
 
 ## What is Cody?
 
