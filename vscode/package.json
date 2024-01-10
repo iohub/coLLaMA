@@ -76,13 +76,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/sourcegraph/cody",
+    "url": "https://github.com/iohub/collama",
     "directory": "vscode"
   },
   "bugs": {
-    "url": "https://github.com/sourcegraph/cody/issues"
+    "url": "https://github.com/iohub/collama/issues"
   },
-  "homepage": "https://docs.sourcegraph.com/cody",
+  "homepage": "https://github.com/iohub/collama",
   "badges": [
     {
       "url": "https://img.shields.io/discord/969688426372825169?color=5765F2",

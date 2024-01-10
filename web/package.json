@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sourcegraph/cody",
+    "url": "https://github.com/iohub/collama",
     "directory": "web"
   },
   "main": "src/index.ts",

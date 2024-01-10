@@ -6,7 +6,7 @@
   "homepage": "https://cody.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sourcegraph/cody"
+    "url": "https://github.com/iohub/collama"
   },
   "engines": {
     "node": "^v20.4.0",
