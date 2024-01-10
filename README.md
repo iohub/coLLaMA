@@ -12,6 +12,8 @@
 - Set your llama.cpp server's address like http://192.168.1.100 in the Cody>llama Server Endpoint configure.
 - now enjoy coding with your localized deploy models.
 
+<img src="examples/chat_demo.png" alt="chat with llama.cpp server"/>
+
 ## What is Cody?
 
 Cody is a free, open-source AI coding assistant that can write and fix code, provide AI-generated autocomplete, and answer your coding questions. Cody fetches relevant code context from across your entire codebase to write better code that uses more of your codebase's APIs, impls, and idioms, with less hallucination.
@@ -34,9 +36,6 @@ Cody is a free, open-source AI coding assistant that can write and fix code, pro
 
 > <img src="https://storage.googleapis.com/sourcegraph-assets/website/Product%20Animations/GIFS/cody_inline_June23-sm.gif" width=400>
 
-**Codebase-wide chat:**
-
-> <img src="https://storage.googleapis.com/sourcegraph-assets/website/Product%20Animations/GIFS/cody-chat-may2023-optim.gif" width=400>
 
 ## Contributing
 
