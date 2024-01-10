@@ -1,6 +1,7 @@
+
 <div align=center>
 
-# Cody with LLaMA
+# <img src="https://storage.googleapis.com/sourcegraph-assets/cody/20230417/logomark-default.svg" width="26"> Cody with LLaMA
 
 "an AI pair programmer based on self-hosted llama.cpp endpoint."
 
@@ -8,8 +9,9 @@
 
 ## Get started
 
-
-- Build and run the VS Code extension locally: `pnpm install && cd vscode && pnpm run dev`
+- Install coLLaMa from VSCode marketplace.
+- Set your llama.cpp server's address like http://192.168.1.100 in the Cody>llama Server Endpoint configure. now enjoy coding with your localized deploy models.
+- or Build and run the VS Code extension locally: `pnpm install && cd vscode && pnpm run dev`
 
 ## What is Cody?
 
@@ -42,4 +44,3 @@ Cody is a free, open-source AI coding assistant that can write and fix code, pro
 All code in this repository is open source (Apache 2).
 
 Quickstart: `pnpm install && cd vscode && pnpm run dev` to run a local build of the Cody VS Code extension.
-
