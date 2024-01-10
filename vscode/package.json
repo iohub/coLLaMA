@@ -1,8 +1,8 @@
 {
   "name": "collama",
   "private": true,
-  "displayName": "coLLaMA",
-  "version": "0.16.5",
+  "displayName": "collama",
+  "version": "0.16.6",
   "publisher": "rickyang",
   "license": "Apache-2.0",
   "icon": "resources/cody.png",
