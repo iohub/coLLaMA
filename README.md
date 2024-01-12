@@ -34,10 +34,12 @@ chmod +x wizardcoder-python-13b.llamafile
 5. Run the llamafile. e.g.:
 
 ```sh
-# for *nix
+# use only cpu in *nix
 ./wizardcoder-python-13b.llamafile
-# for windows
+# use only cpu in Windows
 .\wizardcoder-python-13b.llamafile.exe
+# use gpu 
+.\wizardcoder-python-13b.llamafile.exe -ngl 100
 ```
 
 6. Your browser should open automatically and display a chat interface. 
@@ -46,7 +48,7 @@ chmod +x wizardcoder-python-13b.llamafile
 
 ## What is Cody?
 
-Cody is a free, open-source AI coding assistant that can write and fix code, provide AI-generated autocomplete, and answer your coding questions. Cody fetches relevant code context from across your entire codebase to write better code that uses more of your codebase's APIs, impls, and idioms, with less hallucination.
+Cody is a free, open-source AI coding assistant that can write and fix code, provide AI-generated autocomplete, and answer your coding questions.
 
 
 ## What can Cody do?
