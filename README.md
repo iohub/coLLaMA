@@ -1,6 +1,6 @@
 <div align=center>
 
-# <img src="https://storage.googleapis.com/sourcegraph-assets/cody/20230417/logomark-default.svg" width="26"> Cody with LLaMA
+# <img src="https://storage.googleapis.com/sourcegraph-assets/cody/20230417/logomark-default.svg" width="26"> Cody with [LLaMA.cpp](https://github.com/ggerganov/llama.cpp)
 
 "VSCode AI coding assistant powered by self-hosted llama.cpp endpoint."
 
