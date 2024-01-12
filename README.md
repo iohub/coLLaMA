@@ -34,7 +34,7 @@ D:\path_to_unzip_files\server.exe -m D:\path_to_model\wizardcoder-python-13b-v1.
 ```
 
 
-### Linux
+### Linux or MacOS
 
 `Please compile the llama.cpp project by yourself, and follow the same startup steps.`
 

@@ -1,23 +1,46 @@
-
 <div align=center>
 
-# Cody with LLaMA
+# Cody with [LLaMA.cpp](https://github.com/ggerganov/llama.cpp)
 
-"an AI coding assistant powered by self-hosted llama.cpp endpoint."
+"VSCode AI coding assistant powered by self-hosted llama.cpp endpoint."
 
 </div>
 
 ## Get started
 
-- Install collama from VSCode marketplace.
-- Set your llama.cpp server's address like http://192.168.1.100 in the Cody>llama Server Endpoint configure.
-- now enjoy coding with your localized deploy models.
+- Install coLLaMa from VSCode marketplace.
+- Set your llama.cpp server's address like http://192.168.0.101:8080 in the Cody>llama Server Endpoint configure.
+- Now enjoy coding with your localized deploy models.
 
-> <img src="https://raw.githubusercontent.com/iohub/coLLaMA/main/examples/chat_demo.gif" alt="chat with llama.cpp server"/>
+<img src="examples/chat_demo.gif" alt="chat with llama.cpp server"/>
+
+## Quick start your model service
+
+### Windows
+>
+1. Download llama.cpp binary release [archive](https://github.com/ggerganov/llama.cpp/releases)
+
+2. Unzip `cudart-llama-bin-xxx-x64.zip` to folder
+
+3. Download GGUF model file, for example: [wizardcoder-python-13b-v1.0.Q4_K_M.gguf](https://huggingface.co/TheBloke/WizardCoder-Python-13B-V1.0-GGUF/resolve/main/wizardcoder-python-13b-v1.0.Q4_K_M.gguf?download=true)
+
+4. Execute `server.exe` startup command.
+
+```sh
+# only use cpu
+D:\path_to_unzip_files\server.exe -m D:\path_to_model\wizardcoder-python-13b-v1.0.Q4_K_M.gguf -t 8 -c 1024
+# use gpu
+D:\path_to_unzip_files\server.exe -m D:\path_to_model\wizardcoder-python-13b-v1.0.Q4_K_M.gguf -t 8 -ngl 81 -c 1024
+```
+
+
+### Linux or MacOS
+
+`Please compile the llama.cpp project by yourself, and follow the same startup steps.`
 
 ## What is Cody?
 
-Cody is a free, open-source AI coding assistant that can write and fix code, provide AI-generated autocomplete, and answer your coding questions. Cody fetches relevant code context from across your entire codebase to write better code that uses more of your codebase's APIs, impls, and idioms, with less hallucination.
+Cody is a free, open-source AI coding assistant that can write and fix code, provide AI-generated autocomplete, and answer your coding questions.
 
 
 ## What can Cody do?
@@ -43,3 +66,4 @@ Cody is a free, open-source AI coding assistant that can write and fix code, pro
 All code in this repository is open source (Apache 2).
 
 Quickstart: `pnpm install && cd vscode && pnpm run dev` to run a local build of the Cody VS Code extension.
+
