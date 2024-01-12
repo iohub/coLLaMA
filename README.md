@@ -15,36 +15,28 @@
 <img src="examples/chat_demo.gif" alt="chat with llama.cpp server"/>
 
 ## Quick start your model service
-### Recommended deployment with [llamafile](https://github.com/Mozilla-Ocho/llamafile)
+
+### Windows
 >
-1. Download [wizardcoder-python-13b.llamafile](https://huggingface.co/jartine/wizardcoder-13b-python/resolve/main/wizardcoder-python-13b.llamafile?download=true) (7.9 GB).
+1. Download llama.cpp binary release [archive](https://github.com/ggerganov/llama.cpp/releases)
 
-2. Open your computer's terminal.
+2. Unzip `cudart-llama-bin-xxx-x64.zip` to folder
 
-3. If you're using macOS, Linux, or BSD, you'll need to grant permission 
-for your computer to execute this new file. (You only need to do this 
-once.)
+3. Download GGUF model file, for example: [wizardcoder-python-13b-v1.0.Q4_K_M.gguf](https://huggingface.co/TheBloke/WizardCoder-Python-13B-V1.0-GGUF/resolve/main/wizardcoder-python-13b-v1.0.Q4_K_M.gguf?download=true)
 
-```sh
-chmod +x wizardcoder-python-13b.llamafile
-```
-
-4. If you're on Windows, rename the file by adding ".exe" on the end.
-
-5. Run the llamafile. e.g.:
+4. Execute `server.exe` startup command.
 
 ```sh
-# use only cpu in *nix
-./wizardcoder-python-13b.llamafile
-# use only cpu in Windows
-.\wizardcoder-python-13b.llamafile.exe
-# use gpu 
-.\wizardcoder-python-13b.llamafile.exe -ngl 100
+# only use cpu
+D:\path_to_unzip_files\server.exe -m D:\path_to_model\wizardcoder-python-13b-v1.0.Q4_K_M.gguf -t 8 -c 1024
+# use gpu
+D:\path_to_unzip_files\server.exe -m D:\path_to_model\wizardcoder-python-13b-v1.0.Q4_K_M.gguf -t 8 -ngl 81 -c 1024
 ```
 
-6. Your browser should open automatically and display a chat interface. 
-(If it doesn't, just open your browser and point it at http://localhost:8080.)
 
+### Linux
+
+`Please compile the llama.cpp project by yourself, and follow the same startup steps.`
 
 ## What is Cody?
 
