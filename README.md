@@ -9,7 +9,7 @@
 ## Get started
 
 - Install coLLaMa from VSCode marketplace.
-- Set your llama.cpp server's address like http://192.168.1.100 in the Cody>llama Server Endpoint configure.
+- Set your llama.cpp server's address like http://192.168.0.101:8080 in the Cody>llama Server Endpoint configure.
 - Now enjoy coding with your localized deploy models.
 
 <img src="examples/chat_demo.gif" alt="chat with llama.cpp server"/>
