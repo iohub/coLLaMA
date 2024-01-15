@@ -2,7 +2,7 @@
   "name": "ocopilot",
   "private": true,
   "displayName": "Open Copilot",
-  "version": "0.16.7",
+  "version": "0.16.8",
   "publisher": "rickyang",
   "license": "Apache-2.0",
   "icon": "resources/cody.png",
