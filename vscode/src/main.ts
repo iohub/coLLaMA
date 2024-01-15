@@ -34,11 +34,10 @@ import { Comment, InlineController } from './services/InlineController'
 import { LocalAppSetupPublisher } from './services/LocalAppSetupPublisher'
 import { localStorage } from './services/LocalStorageProvider'
 import * as OnboardingExperiment from './services/OnboardingExperiment'
-import { getAccessToken, secretStorage, VSCodeSecretStorage } from './services/SecretStorageProvider'
+import { secretStorage, VSCodeSecretStorage } from './services/SecretStorageProvider'
 import { createStatusBar } from './services/StatusBar'
 import { createOrUpdateEventLogger, telemetryService } from './services/telemetry'
 import { createOrUpdateTelemetryRecorderProvider, telemetryRecorder } from './services/telemetry-v2'
-import { workspaceActionsOnConfigChange } from './services/utils/workspace-action'
 import { TestSupport } from './test-support'
 import { parseAllVisibleDocuments, updateParseTreeOnEdit } from './tree-sitter/parse-tree-cache'
 
@@ -125,7 +124,7 @@ const register = async (
     const authProvider = new AuthProvider(initialConfig)
     await authProvider.init()
 
-    const symfRunner = platform.createSymfRunner?.(context, initialConfig.serverEndpoint, initialConfig.accessToken)
+    const symfRunner = undefined // platform.createSymfRunner?.(context, initialConfig.serverEndpoint, initialConfig.accessToken)
 
     graphqlClient.onConfigurationChange(initialConfig)
     void featureFlagProvider.syncAuthStatus()
@@ -223,16 +222,6 @@ const register = async (
     // Adds a change listener to the auth provider that syncs the auth status
     authProvider.addChangeListener((authStatus: AuthStatus) => {
         void chatManager.syncAuthStatus(authStatus)
-        if (symfRunner && authStatus.isLoggedIn) {
-            getAccessToken()
-                .then(token => {
-                    symfRunner.setSourcegraphAuth(authStatus.endpoint, token)
-                })
-                .catch(() => {})
-            workspaceActionsOnConfigChange(editor.getWorkspaceRootUri(), authStatus.endpoint)
-        } else {
-            symfRunner?.setSourcegraphAuth(null, null)
-        }
     })
     // Sync initial auth status
     void chatManager.syncAuthStatus(authProvider.getAuthStatus())
@@ -634,7 +623,7 @@ const register = async (
             externalServicesOnDidConfigurationChange(newConfig)
             void configureEventsInfra(newConfig, isExtensionModeDevOrTest)
             platform.onConfigurationChange?.(newConfig)
-            symfRunner?.setSourcegraphAuth(newConfig.serverEndpoint, newConfig.accessToken)
+            undefined
         },
     }
 }
