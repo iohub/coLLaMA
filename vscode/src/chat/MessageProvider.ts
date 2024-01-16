@@ -347,6 +347,19 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
         return this.platform.recipes.find(recipe => recipe.id === id)
     }
 
+    private mergeHumanPrompt(prompt: Message[]): Message[] {
+        let mergeStr = ''
+        prompt.forEach(e => {
+            if (e.speaker == 'human' && e.text) {
+                mergeStr += e.text + '\n'
+            }
+        })
+        return [
+            {speaker: 'human', text: mergeStr},
+            {speaker: 'assistant'}
+        ]
+    }
+
     public async executeRecipe(
         recipeId: RecipeID,
         humanChatInput = '',
@@ -358,10 +371,10 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
             this.handleError('Cannot execute multiple actions. Please wait for the current action to finish.', 'system')
             return
         }
-
+        const gendocAction = humanChatInput == '/gendoc' && recipeId == 'custom-prompt'
         const requestID = uuid.v4()
         this.currentRequestID = requestID
-
+        // console.log(recipeId, humanChatInput, gendocAction)
         if (source === 'chat' && this.contextProvider.config.experimentalChatPredictions) {
             void this.runRecipeForSuggestion('next-questions', humanChatInput, source)
         }
@@ -401,6 +414,7 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
                 responseMultiplexer: this.multiplexer,
                 addEnhancedContext,
                 userInputContextFiles,
+                onlySelectedContext: gendocAction
             })
         } catch (error) {
             this.handleError('Fail to submit question', 'system')
@@ -444,7 +458,7 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
                 )
                 this.transcript.setUsedContextFilesForLastInteraction(contextFiles, preciseContexts)
                 this.sendPrompt(
-                    prompt,
+                    gendocAction ? this.mergeHumanPrompt(prompt) : prompt,
                     interaction.getAssistantMessage().prefix ?? '',
                     recipe.multiplexerTopic,
                     recipeId,
@@ -465,10 +479,6 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
             }
         }
 
-        const promptText = this.isDotComUser ? interaction.getHumanMessage().text : undefined
-        const properties = { contextSummary, source, requestID, chatModel: this.chatModel, promptText }
-        telemetryService.log(`CodyVSCodeExtension:recipe:${recipe.id}:executed`, properties, { hasV2Event: true })
-        telemetryRecorder.recordEvent(`cody.recipe.${recipe.id}`, 'executed', { metadata: { ...contextSummary } })
     }
 
     protected async runRecipeForSuggestion(
@@ -491,6 +501,7 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
             responseMultiplexer: multiplexer,
             // TODO(dpc): Support initial chats *without* enhanced context
             addEnhancedContext: this.transcript.isEmpty,
+            onlySelectedContext: false
         })
         if (!interaction) {
             return

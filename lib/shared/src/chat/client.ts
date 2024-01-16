@@ -131,13 +131,13 @@ export async function createClient({
             if (!recipe) {
                 return
             }
-
             const interaction = await recipe.getInteraction(humanChatInput, {
                 editor: options?.prefilledOptions ? withPreselectedOptions(editor, options.prefilledOptions) : editor,
                 intentDetector,
                 codebaseContext,
                 responseMultiplexer: new BotResponseMultiplexer(),
                 addEnhancedContext: transcript.isEmpty,
+                onlySelectedContext: false
             })
             if (!interaction) {
                 return

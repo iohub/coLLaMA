@@ -183,5 +183,6 @@ export function newRecipeContext(args?: Partial<RecipeContext>): RecipeContext {
             ),
         responseMultiplexer: args.responseMultiplexer || new BotResponseMultiplexer(),
         addEnhancedContext: args.addEnhancedContext ?? false,
+        onlySelectedContext: false
     }
 }
