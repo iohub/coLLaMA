@@ -40,26 +40,7 @@ D:\path_to_unzip_files\server.exe -m D:\path_to_model\wizardcoder-python-13b-v1.
 
 ## What is Cody?
 
-Cody is a free, open-source AI coding assistant that can write and fix code, provide AI-generated autocomplete, and answer your coding questions.
-
-
-## What can Cody do?
-
-- **Chat:** Ask Cody questions about your entire codebase. Cody will use semantic search to retrieve files from your codebase and use context from those files to answer your questions.
-- **Autocomplete:** Cody makes single-line and multi-line suggestions as you type, speeding up your coding and shortcutting the need for you to hunt down function and variable names as you type.
-- **Inline Chat:** Ask Cody to fix or refactor code from anywhere in a file.
-- **Commands:** Cody has quick commands for common actions. Simply highlight a code snippet and run a command, like “Document code,” “Explain code,” or “Generate Unit Tests.”
-
-## Demos
-
-**Autocomplete**
-
-> <img src="https://storage.googleapis.com/sourcegraph-assets/website/Product%20Animations/GIFS/cody-completions-may2023-optim-sm2.gif" width=400>
-
-**Inline chat**
-
-> <img src="https://storage.googleapis.com/sourcegraph-assets/website/Product%20Animations/GIFS/cody_inline_June23-sm.gif" width=400>
-
+Cody is a free, open-source AI coding assistant that can write and fix code, provide AI-generated autocomplete, and answer your coding.
 
 ## Contributing
 
