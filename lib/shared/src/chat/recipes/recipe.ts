@@ -13,6 +13,7 @@ export interface RecipeContext {
     responseMultiplexer: BotResponseMultiplexer
     addEnhancedContext: boolean
     userInputContextFiles?: ContextFile[]
+    onlySelectedContext: boolean
 }
 
 export type RecipeID =

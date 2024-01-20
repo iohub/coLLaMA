@@ -148,7 +148,9 @@ export function populateCurrentSelectedCodeContextTemplate(code: string, filePat
 }
 
 const CURRENT_FILE_CONTEXT_TEMPLATE = `My selected code from file path \`{filePath}\` in <selected> tags:
-{precedingText}<selected>{selectedText}</selected>{followingText}`
+{precedingText}<selected>\n{selectedText}\n</selected>{followingText}`
+
+const SELECTED_CONTEXT_TEMPLATE = `Here is my selected code:\n\`\`\`\n{selectedText}\n\`\`\``
 
 export function populateCurrentFileFromEditorSelectionContextTemplate(
     selection: ActiveTextEditorSelection,
@@ -166,6 +168,20 @@ export function populateCurrentFileFromEditorSelectionContextTemplate(
         .replace('{followingText}', truncatedFollowingText)
         .replace('{selectedText}', truncatedSelectedText)
         .replace('{precedingText}', truncatedPrecedingText)
+
+    return truncateText(fileContext, MAX_RECIPE_INPUT_TOKENS * 3)
+}
+
+export function populateOnlySelectionContextTemplate(
+    selection: ActiveTextEditorSelection,
+    filePath: string
+): string {
+    const extension = getFileExtension(filePath)
+    const languageName = getNormalizedLanguageName(extension)
+    const truncatedSelectedText = truncateText(selection.selectedText, MAX_RECIPE_INPUT_TOKENS) || ''
+
+    const fileContext = SELECTED_CONTEXT_TEMPLATE.replace('{languageName}', languageName)
+        .replace('{selectedText}', truncatedSelectedText)
 
     return truncateText(fileContext, MAX_RECIPE_INPUT_TOKENS * 3)
 }

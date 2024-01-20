@@ -312,6 +312,7 @@ export const useClient = ({
                 codebaseContext,
                 responseMultiplexer: new BotResponseMultiplexer(),
                 addEnhancedContext: scope.addEnhancedContext,
+                onlySelectedContext: false,
             })
             if (!interaction) {
                 return Promise.resolve(null)

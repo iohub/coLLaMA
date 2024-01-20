@@ -152,7 +152,7 @@ const register = async (
     disposables.push(new LocalAppSetupPublisher(contextProvider))
     await contextProvider.init()
 
-    const localEmbeddings = platform.createLocalEmbeddingsController?.()
+    const localEmbeddings = undefined // platform.createLocalEmbeddingsController?.()
     // Hack to get embeddings search client
     const codebaseContext = await hackGetCodebaseContext(
         initialConfig,

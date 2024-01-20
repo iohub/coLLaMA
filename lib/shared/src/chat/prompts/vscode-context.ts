@@ -12,6 +12,7 @@ import {
     populateContextTemplateFromText,
     populateCurrentEditorContextTemplate,
     populateCurrentFileFromEditorSelectionContextTemplate,
+    populateOnlySelectionContextTemplate,
     populateCurrentSelectedCodeContextTemplate,
     populateImportListContextTemplate,
     populateListOfFilesContextTemplate,
@@ -463,6 +464,18 @@ export function getCurrentFileContextFromEditorSelection(selection: ActiveTextEd
 
     return getContextMessageWithResponse(
         populateCurrentFileFromEditorSelectionContextTemplate(selection, selection.fileName),
+        selection,
+        answers.file
+    )
+}
+
+export function getContextFromEditorSelection(selection: ActiveTextEditorSelection): ContextMessage[] {
+    if (!selection.selectedText) {
+        return []
+    }
+
+    return getContextMessageWithResponse(
+        populateOnlySelectionContextTemplate(selection, selection.fileName),
         selection,
         answers.file
     )

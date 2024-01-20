@@ -17,6 +17,7 @@ import {
 import {
     getCurrentDirContext,
     getCurrentFileContextFromEditorSelection,
+    getContextFromEditorSelection,
     getCurrentFileImportsContext,
     getDirectoryFileListContext,
     getEditorDirContext,
@@ -91,6 +92,11 @@ export class CustomPrompt implements Recipe {
               )
 
         const truncatedText = truncateText(text, MAX_HUMAN_INPUT_TOKENS)
+
+        if (selection && context.onlySelectedContext) {
+            const contextMessages = Promise.resolve(getContextFromEditorSelection(selection))
+            return newInteraction({ text, displayText, contextMessages, source })
+        }
 
         // Attach code selection to prompt text if only selection is needed as context
         if (selection && isOnlySelectionRequired(contextConfig)) {
