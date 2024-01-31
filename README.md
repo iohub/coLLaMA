@@ -38,10 +38,6 @@ D:\path_to_unzip_files\server.exe -m D:\path_to_model\wizardcoder-python-13b-v1.
 
 `Please compile the llama.cpp project by yourself, and follow the same startup steps.`
 
-## What is Cody?
-
-Cody is a free, open-source AI coding assistant that can write and fix code, provide AI-generated autocomplete, and answer your coding.
-
 ## Contributing
 
 All code in this repository is open source (Apache 2).
