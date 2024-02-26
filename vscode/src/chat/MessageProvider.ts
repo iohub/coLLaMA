@@ -374,10 +374,10 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
         const gendocAction = humanChatInput == '/gendoc' && recipeId == 'custom-prompt'
         const requestID = uuid.v4()
         this.currentRequestID = requestID
-        // console.log(recipeId, humanChatInput, gendocAction)
         if (source === 'chat' && this.contextProvider.config.experimentalChatPredictions) {
             void this.runRecipeForSuggestion('next-questions', humanChatInput, source)
         }
+        humanChatInput += getSelectedCode();
 
         // Filter the human input to check for chat commands and retrieve the correct recipe id
         // e.g. /edit from 'chat-question' should be redirected to use the 'fixup' recipe
@@ -436,11 +436,6 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
         interaction.setMetadata({ requestID, source })
         this.transcript.addInteraction(interaction)
 
-        const contextSummary = {
-            embeddings: 0,
-            local: 0,
-            user: 0, // context added by user with @ command
-        }
         // Check whether or not to connect to LLM backend for responses
         // Ex: performing fuzzy / context-search does not require responses from LLM backend
         switch (recipeId) {
@@ -466,16 +461,6 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
                 )
                 this.sendTranscript()
                 await this.saveTranscriptToChatHistory()
-
-                contextFiles.map(file => {
-                    if (file.source === 'embeddings') {
-                        contextSummary.embeddings++
-                    } else if (file.source === 'user') {
-                        contextSummary.user++
-                    } else {
-                        contextSummary.local++
-                    }
-                })
             }
         }
 
@@ -875,4 +860,13 @@ export abstract class MessageProvider extends MessageHandler implements vscode.D
 
 function isAbortError(error: string): boolean {
     return error === 'aborted' || error === 'socket hang up'
+}
+
+function getSelectedCode() : string {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        return "";
+    }
+    const range = new vscode.Range(editor.selection.start, editor.selection.end);
+    return "\n```\n" + editor.document.getText(range) + "\n```\n";
 }
