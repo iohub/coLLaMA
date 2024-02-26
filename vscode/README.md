@@ -1,6 +1,6 @@
 <div align=center>
 
-# Cody with [LLaMA.cpp](https://github.com/ggerganov/llama.cpp)
+# Copilot with [LLaMA.cpp](https://github.com/ggerganov/llama.cpp)
 
 "VSCode AI coding assistant powered by self-hosted llama.cpp endpoint."
 
@@ -8,7 +8,7 @@
 
 ## Get started
 
-- Install coLLaMa from VSCode marketplace.
+- Install `Open Copilot` from VSCode marketplace.
 - Set your llama.cpp server's address like http://192.168.0.101:8080 in the Cody>llama Server Endpoint configure.
 - Now enjoy coding with your localized deploy models.
 

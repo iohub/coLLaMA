@@ -1,12 +1,12 @@
 {
-  "name": "collama",
+  "name": "ocopilot",
   "private": true,
-  "displayName": "collama",
-  "version": "0.16.8",
+  "displayName": "Open Copilot",
+  "version": "0.17.1",
   "publisher": "rickyang",
   "license": "Apache-2.0",
   "icon": "resources/cody.png",
-  "description": "AI coding assistant powered by self-hosted llama.cpp endpoint.",
+  "description": "AI Copilot powered by self-hosted llama.cpp endpoint.",
   "scripts": {
     "postinstall": "pnpm download-wasm",
     "dev": "pnpm run -s dev:desktop",
