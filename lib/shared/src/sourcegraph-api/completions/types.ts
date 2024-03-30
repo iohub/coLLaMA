@@ -74,6 +74,16 @@ export function FormatPrompt(params: CompletionParameters, promptType: string) :
                 }
             })
             break
+        case 'StarlingLM':
+                params.messages.forEach(e => {
+                    if (e.speaker == "human") {
+                        prompt +=  e.text ? `GPT4 Correct User: ${e.text}<|end_of_turn|>` : "GPT4 Correct User: "
+                    }
+                    if (e.speaker == "assistant") {
+                        prompt +=  e.text ? `GPT4 Correct Assistant: ${e.text}<|end_of_turn|>` : "GPT4 Correct Assistant:"
+                    }
+                })
+                break
         default: // WizardCoder format
             prompt += "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n"
             params.messages.forEach(e => {

@@ -2,7 +2,7 @@
   "name": "ocopilot",
   "private": true,
   "displayName": "Open Copilot",
-  "version": "0.17.2",
+  "version": "0.17.3",
   "publisher": "rickyang",
   "license": "Apache-2.0",
   "icon": "resources/cody.png",
@@ -1014,6 +1014,7 @@
           "type": "string",
           "default": "WizardCoder",
           "enum": [
+            "StarlingLM",
             "WizardCoder",
             "Guanaco"
           ],

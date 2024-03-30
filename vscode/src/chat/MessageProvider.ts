@@ -864,7 +864,7 @@ function isAbortError(error: string): boolean {
 
 function getSelectedCode() : string {
     const editor = vscode.window.activeTextEditor;
-    if (!editor) {
+    if (!editor || editor.selection.start.isEqual(editor.selection.end)) {
         return "";
     }
     const range = new vscode.Range(editor.selection.start, editor.selection.end);
