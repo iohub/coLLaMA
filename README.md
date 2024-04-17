@@ -16,6 +16,13 @@
 
 <img src="examples/chat_demo.gif" alt="chat with llama.cpp server"/>
 
+### code generate
+
+<img src="examples/code_generate_demo1.gif" alt="code generate"/>
+
+### code explain
+
+<img src="examples/explain_code_demo1.gif" alt="explain code"/>
 
 ## Quick start your model service
 
