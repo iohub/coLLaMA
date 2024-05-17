@@ -8,8 +8,8 @@
 
 ## Get started
 
-- Install `Open Copilot` from VSCode marketplace.
-- Set your llama.cpp server's address like http://192.168.0.101:8080 in the Cody>llama Server Endpoint configure.
+- Install [Open Copilot](https://marketplace.visualstudio.com/items?itemName=rickyang.ocopilot) from the VSCode marketplace.
+- Set your llama.cpp server's address to something such as `http://192.168.0.101:8080` in the "Cody » Llama Server Endpoint" setting.
 - Now enjoy coding with your localized deploy models.
 
  ### chat 
