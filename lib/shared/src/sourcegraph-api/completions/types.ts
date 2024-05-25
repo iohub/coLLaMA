@@ -84,6 +84,16 @@ export function FormatPrompt(params: CompletionParameters, promptType: string) :
                     }
                 })
                 break
+        case 'None':
+            params.messages.forEach(e => {
+                if (e.speaker == "human" && e.text) {
+                    prompt +=  e.text
+                }
+                if (e.speaker == "assistant" && e.text) {
+                    prompt +=  e.text
+                }
+            })
+            break
         default: // WizardCoder format
             prompt += "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n"
             params.messages.forEach(e => {
