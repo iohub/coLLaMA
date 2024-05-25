@@ -124,7 +124,8 @@ export class FireworksProvider extends Provider {
                 if ('symbol' in snippet && snippet.symbol !== '') {
                     intro.push(`Additional documentation for \`${snippet.symbol}\`:\n\n${snippet.content}`)
                 } else {
-                    intro.push(`Here is a reference snippet of code from ${snippet.fileName}:\n\n${snippet.content}`)
+                    // iohub notes: no need to includes reference snippet.
+                    // intro.push(`Here is a reference snippet of code from ${snippet.fileName}:\n\n${snippet.content}`)
                 }
             }
 
@@ -201,7 +202,7 @@ export class FireworksProvider extends Provider {
         }
 
         tracer?.params(requestParams)
-
+        // iohub notes: completion params here.
         const completions = await Promise.all(
             Array.from({ length: this.options.n }).map(() => {
                 return fetchAndProcessCompletionsImpl({
@@ -224,7 +225,9 @@ export class FireworksProvider extends Provider {
         if (isStarCoderFamily(this.model)) {
             // c.f. https://huggingface.co/bigcode/starcoder#fill-in-the-middle
             // c.f. https://arxiv.org/pdf/2305.06161.pdf
-            return `<filename>${filename}<fim_prefix>${intro}${prefix}<fim_suffix>${suffix}<fim_middle>`
+            // iohub notes: no need to includes filename.
+            // return `<filename>${filename}<fim_prefix>${intro}${prefix}<fim_suffix>${suffix}<fim_middle>`
+            return `<fim_prefix>${intro}${prefix}<fim_suffix>${suffix}<fim_middle>`
         }
         if (isLlamaCode(this.model)) {
             // c.f. https://github.com/facebookresearch/codellama/blob/main/llama/generation.py#L402
