@@ -434,11 +434,9 @@ const FeedbackButtons: React.FunctionComponent<FeedbackButtonsProps> = ({ classN
     )
 }
 
-const welcomeMessageMarkdown = `Start writing code and I’ll autocomplete lines and entire functions for you.
-
+const welcomeMessageMarkdown = `
 You can ask me to explain, document and edit code using the [Cody Commands](command:cody.action.commands.menu) action (⌥C), or by right-clicking on code and using the “Cody” menu.
 
-See the [Getting Started](command:cody.welcome) guide for more tips and tricks.
 `
 
 const slashCommandRegex = /^\/[A-Za-z]+/

@@ -10,7 +10,7 @@
   },
   "engines": {
     "node": "^v20.4.0",
-    "pnpm": "^8.6.7"
+    "pnpm": "^9.5.0"
   },
   "browser": {
     "fs": false
