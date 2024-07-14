@@ -17,7 +17,7 @@ interface ConfigGetter {
  * All configuration values, with some sanitization performed.
  */
 export function getConfiguration(config: ConfigGetter = vscode.workspace.getConfiguration()): Configuration {
-    const isTesting = process.env.CODY_TESTING === 'true'
+    // const isTesting = process.env.CODY_TESTING === 'true'
 
     let debugRegex: RegExp | null = null
     try {
@@ -34,10 +34,7 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
         debugRegex = new RegExp('.*')
     }
 
-    let autocompleteExperimentalGraphContext: 'lsp-light' | 'bfg' | null = config.get(
-        CONFIG_KEY.autocompleteExperimentalGraphContext,
-        null
-    )
+    let autocompleteExperimentalGraphContext: 'lsp-light' | 'bfg' | null = null
     // Handle the old `true` option
     if (autocompleteExperimentalGraphContext === true) {
         autocompleteExperimentalGraphContext = 'lsp-light'
@@ -62,16 +59,16 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
             '*': true,
             scminput: false,
         }),
-        experimentalChatPanel: config.get(CONFIG_KEY.experimentalChatPanel, isTesting),
-        experimentalChatPredictions: config.get(CONFIG_KEY.experimentalChatPredictions, isTesting),
-        experimentalSearchPanel: false,
-        experimentalSimpleChatContext: config.get(CONFIG_KEY.experimentalSimpleChatContext, isTesting),
+        experimentalChatPanel: false,
+        experimentalChatPredictions: true,
+        experimentalSearchPanel: true,
+        experimentalSimpleChatContext: false,
         chatPreInstruction: config.get(CONFIG_KEY.chatPreInstruction),
         experimentalGuardrails: false,
-        experimentalNonStop: config.get(CONFIG_KEY.experimentalNonStop, isTesting),
-        experimentalLocalSymbols: config.get(CONFIG_KEY.experimentalLocalSymbols, false),
+        experimentalNonStop: false,
+        experimentalLocalSymbols: false,
         commandCodeLenses: config.get(CONFIG_KEY.commandCodeLenses, false),
-        editorTitleCommandIcon: config.get(CONFIG_KEY.editorTitleCommandIcon, true),
+        editorTitleCommandIcon: true,
         autocompleteAdvancedProvider,
         autocompleteAdvancedServerEndpoint: config.get<string | null>(
             'cody.llama.serverEndpoint',
@@ -98,7 +95,7 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
 
         // NOTE: Inline Chat will be deprecated soon - Do not enable inline-chat when experimental.chatPanel is enabled
         inlineChat:
-            config.get(CONFIG_KEY.inlineChatEnabled, false) !== config.get(CONFIG_KEY.experimentalChatPanel, isTesting),
+            config.get(CONFIG_KEY.inlineChatEnabled, false),
         codeActions: config.get(CONFIG_KEY.codeActionsEnabled, true),
 
         /**

@@ -936,35 +936,11 @@
           "markdownDescription": "Enables asking questions and requesting code changes directly from within the code editor. Use the + button next to any line of code to start an inline chat.",
           "default": false
         },
-        "cody.editorTitleCommandIcon": {
-          "order": 7,
-          "type": "boolean",
-          "markdownDescription": "Adds a Cody icon to the editor title menu for quick access to Cody commands.",
-          "default": true
-        },
-        "cody.experimental.chatPredictions": {
-          "order": 8,
-          "type": "boolean",
-          "default": false,
-          "markdownDescription": "Adds suggestions of possible relevant messages in the chat window."
-        },
         "cody.commandCodeLenses": {
           "order": 8,
           "type": "boolean",
           "markdownDescription": "Adds code lenses to current file for quick access to Cody commands.",
           "default": false
-        },
-        "cody.experimental.nonStop": {
-          "order": 9,
-          "type": "boolean",
-          "markdownDescription": "Experimental feature for internal use.",
-          "default": false
-        },
-        "cody.experimental.localSymbols": {
-          "order": 9,
-          "type": "boolean",
-          "default": false,
-          "markdownDescription": "Experimental feature for internal use."
         },
         "cody.chat.preInstruction": {
           "order": 6,
@@ -981,22 +957,10 @@
           "markdownDescription": "Enable Cody fix and explain options in the Quick Fix menu",
           "default": true
         },
-        "cody.experimental.simpleChatContext": {
-          "order": 99,
-          "type": "boolean",
-          "markdownDescription": "Uses the new simplifed chat context fetcher",
-          "default": false
-        },
-        "cody.experimental.symf.path": {
-          "order": 99,
-          "type": "string",
-          "markdownDescription": "Path to symf binary",
-          "default": ""
-        },
         "cody.llama.serverEndpoint": {
           "order": 2,
           "type": "string",
-          "markdownDescription": "The llama.cpp server endpoint. for example: http://127.0.0.1:8080"
+          "markdownDescription": "The service endpoint. for example: http://127.0.0.1:8080"
         },
         "cody.chat.maxTokens": {
           "order": 3,
@@ -1044,23 +1008,6 @@
           "type": "boolean",
           "default": false,
           "markdownDescription": "Dynamically switch from singleline to multiline completion based on the first completion line."
-        },
-        "cody.autocomplete.experimental.graphContext": {
-          "type": "string",
-          "default": null,
-          "enum": [
-            null,
-            "lsp-light",
-            "bfg",
-            "bfg-mixed"
-          ],
-          "markdownDescription": "Use the code graph to retrieve context for autocomplete requests."
-        },
-        "cody.experimental.chatPanel": {
-          "order": 100,
-          "type": "boolean",
-          "markdownDescription": "Experimental feature for internal use.",
-          "default": false
         }
       }
     },
