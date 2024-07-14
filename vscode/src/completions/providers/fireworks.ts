@@ -229,6 +229,10 @@ export class FireworksProvider extends Provider {
             // return `<filename>${filename}<fim_prefix>${intro}${prefix}<fim_suffix>${suffix}<fim_middle>`
             return `<fim_prefix>${intro}${prefix}<fim_suffix>${suffix}<fim_middle>`
         }
+        if (isDeepseekCoderFamily(this.model)) {
+            // c.f. https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-base
+            return `<｜fim▁begin｜>${prefix}<｜fim▁hole｜>${suffix}<｜fim▁end｜>`
+        }
         if (isLlamaCode(this.model)) {
             // c.f. https://github.com/facebookresearch/codellama/blob/main/llama/generation.py#L402
             return `<PRE> ${intro}${prefix} <SUF>${suffix} <MID>`
@@ -312,6 +316,10 @@ function getSuffixAfterFirstNewline(suffix: string): string {
 
 function isStarCoderFamily(model: string): boolean {
     return model.startsWith('starcoder') || model.startsWith('wizardcoder')
+}
+
+function isDeepseekCoderFamily(model: string): boolean {
+    return model.startsWith('deepseekcoder')
 }
 
 function isLlamaCode(model: string): boolean {
