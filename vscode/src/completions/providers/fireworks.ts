@@ -5,7 +5,6 @@ import { tokensToChars } from '@sourcegraph/cody-shared/src/prompt/constants'
 
 import { getLanguageConfig } from '../../tree-sitter/language'
 import { CodeCompletionsClient, CodeCompletionsParams } from '../client'
-import { completionPostProcessLogger } from '../post-process-logger'
 import { CLOSING_CODE_TAG, getHeadAndTail, OPENING_CODE_TAG } from '../text-processing'
 import { InlineCompletionItemWithAnalytics } from '../text-processing/process-inline-completions'
 import { ContextSnippet } from '../types'
@@ -46,6 +45,9 @@ const MODEL_MAP = {
     'llama-code-13b': 'fireworks/accounts/fireworks/models/llama-v2-13b-code',
     'llama-code-13b-instruct': 'fireworks/accounts/fireworks/models/llama-v2-13b-code-instruct',
     'mistral-7b-instruct-4k': 'fireworks/accounts/fireworks/models/mistral-7b-instruct-4k',
+    // added by iohub: deepseeker coder
+    'deepseekcoder-v2-15b': 'fireworks/deepseekcoder-v2-lite-15b',
+    'starcoder-v2-15b': 'fireworks/starcoder-v2-15b',
 }
 
 type FireworksModel =
@@ -215,9 +217,6 @@ export class FireworksProvider extends Provider {
             })
         )
 
-        completionPostProcessLogger.flush()
-        tracer?.result({ completions })
-
         return completions
     }
 
@@ -319,7 +318,7 @@ function isStarCoderFamily(model: string): boolean {
 }
 
 function isDeepseekCoderFamily(model: string): boolean {
-    return model.startsWith('deepseekcoder')
+    return model.toLowerCase().startsWith('deepseekcoder')
 }
 
 function isLlamaCode(model: string): boolean {

@@ -1019,7 +1019,16 @@
             "None",
             "Guanaco"
           ],
-          "markdownDescription": "Prompt template formater."
+          "markdownDescription": "Chat Prompt formater."
+        },
+        "cody.autocomplete.format": {
+          "type": "string",
+          "default": "deepseekcoder-v2-15b",
+          "enum": [
+            "starcoder-v2-15b",
+            "deepseekcoder-v2-15b"
+          ],
+          "markdownDescription": "Code autocomplete Prompt formater."
         },
         "cody.autocomplete.completeSuggestWidgetSelection": {
           "type": "boolean",

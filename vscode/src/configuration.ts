@@ -77,7 +77,10 @@ export function getConfiguration(config: ConfigGetter = vscode.workspace.getConf
             'cody.llama.serverEndpoint',
             null
         ),
-        autocompleteAdvancedModel: null,
+        autocompleteAdvancedModel: config.get(
+            CONFIG_KEY.autocompleteFormat,
+            'deepseekcoder-v2'
+        ),
         autocompleteAdvancedAccessToken: 'fake-token',
         autocompleteCompleteSuggestWidgetSelection: config.get(
             CONFIG_KEY.autocompleteCompleteSuggestWidgetSelection,

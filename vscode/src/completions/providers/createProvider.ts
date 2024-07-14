@@ -23,7 +23,6 @@ export async function createProviderConfig(
     )
     if (providerAndModelFromVSCodeConfig) {
         const { provider, model } = providerAndModelFromVSCodeConfig
-
         switch (provider) {
             case 'unstable-openai': {
                 return createUnstableOpenAIProviderConfig({
