@@ -16,6 +16,11 @@
 
 <img src="examples/chat_demo.gif" alt="chat with llama.cpp server"/>
 
+
+### code completion
+
+<img src="examples/code_completion.gif" alt="code completion"/>
+
 ### code generate
 
 <img src="examples/code_generate_demo1.gif" alt="code generate"/>
