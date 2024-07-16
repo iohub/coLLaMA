@@ -8,14 +8,18 @@
 
 ## Get started
 
-- Install `Open Copilot` from VSCode marketplace.
-- Set your llama.cpp server's address like http://192.168.0.101:8080 in the Cody>llama Server Endpoint configure.
+- Install [Open Copilot](https://marketplace.visualstudio.com/items?itemName=rickyang.ocopilot) from the VSCode marketplace.
+- Set your llama.cpp server's address to something such as `http://192.168.0.101:8080` in the "Cody » Llama Server Endpoint" setting.
 - Now enjoy coding with your localized deploy models.
 
 
  ### chat 
 
 <img src="examples/chat_demo.gif" alt="chat with llama.cpp server"/>
+
+### code completion
+
+<img src="examples/code_completion.gif" alt="code completion"/>
 
 ### code generate
 
@@ -58,5 +62,5 @@ Cody is a free, open-source AI coding assistant that can write and fix code, pro
 
 All code in this repository is open source (Apache 2).
 
-Quickstart: `pnpm install && cd vscode && pnpm run dev` to run a local build of the Cody VS Code extension.
+Quickstart: `pnpm install --save && cd vscode && vsce package --no-dependencies` to run a local build of the Cody VS Code extension.
 
