@@ -1,5 +1,13 @@
 {
   "commands": {
+    "/gendao": {
+      "description": "生成SpringBoot DAO层",
+      "prompt": "Write a brief code comment for the selected {languageName} code. use the idiomatic style for that type of code scope. Do not output any other code. write the code comment in place, outputs in markdown format.",
+      "context": {
+        "currentFile": false,
+        "selection": true
+      }
+    },
     "/gendoc": {
       "description": "Generate code documentation",
       "prompt": "Write a brief code comment for the selected {languageName} code. use the idiomatic style for that type of code scope. Do not output any other code. write the code comment in place, outputs in markdown format.",
