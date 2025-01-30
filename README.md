@@ -1,6 +1,8 @@
 <div align=center>
 
-# AI Copilot with [LLaMA.cpp](https://github.com/ggerganov/llama.cpp)
+# ~~Deprecated：AI Copilot with LLaMA.cpp~~
+
+# Redirect: [Open Copilot](https://github.com/iohub/OpenCopilot)
 
 "VSCode AI coding assistant powered by self-hosted llama.cpp endpoint."
 
